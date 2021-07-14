@@ -3,6 +3,7 @@
 <%@ Import Namespace="System.Web.Configuration" %>
 <%
     var compilationSection = (CompilationSection)ConfigurationManager.GetSection("system.web/compilation");
+    var httpRuntimeSection = (HttpRuntimeSection)ConfigurationManager.GetSection("system.web/httpRuntime");
 %>
 <div id="InnerCenter">
     <div id="Header">
@@ -13,6 +14,9 @@
             </li>
             <li>
                 Optimize compilations: <strong><%= compilationSection.OptimizeCompilations %></strong> (default <strong>False</strong>)
+            </li>
+            <li>
+                Execution timeout: <strong><%= httpRuntimeSection.ExecutionTimeout.TotalSeconds %></strong> (default <strong>600</strong>)
             </li>
         </ul>
     </div>

@@ -18,3 +18,4 @@ RUN C:\FixDevelopmentEntrypoint.ps1 -Path C:\tools\entrypoints\iis\Development.p
 FROM ${BASE_IMAGE}
 
 COPY --from=builder C:\tools C:\tools
+COPY dev-patches\ \tools\dev-patches\
