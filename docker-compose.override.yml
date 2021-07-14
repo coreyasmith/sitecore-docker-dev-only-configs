@@ -39,6 +39,8 @@ services:
     volumes:
       - ${LOCAL_DEPLOY_PATH}\website:C:\deploy
       - ${LOCAL_DATA_PATH}\cd:C:\inetpub\wwwroot\App_Data\logs
+    environment:
+      SITECORE_DEVELOPMENT_PATCHES: ${SITECORE_DEVELOPMENT_PATCHES}
     entrypoint: powershell -Command "& C:\tools\entrypoints\iis\Development.ps1"
 
   cm:
@@ -54,4 +56,6 @@ services:
     volumes:
       - ${LOCAL_DEPLOY_PATH}\website:C:\deploy
       - ${LOCAL_DATA_PATH}\cm:C:\inetpub\wwwroot\App_Data\logs
+    environment:
+      SITECORE_DEVELOPMENT_PATCHES: ${SITECORE_DEVELOPMENT_PATCHES}
     entrypoint: powershell -Command "& C:\tools\entrypoints\iis\Development.ps1"
