@@ -12,6 +12,15 @@ services:
         BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
     scale: 0
 
+  tools:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-sitecore-docker-tools-assets:${VERSION:-latest}
+    build:
+      context: ./docker/build/tools
+      args:
+        BASE_IMAGE: ${SITECORE_TOOLS_REGISTRY}sitecore-docker-tools-assets:${TOOLS_VERSION}
+        BUILD_IMAGE: ${SOLUTION_BUILD_IMAGE}
+    scale: 0
+
   traefik:
     volumes:
       - ./docker/traefik:C:/etc/traefik
@@ -32,10 +41,11 @@ services:
       context: ./docker/build/cd
       args:
         BASE_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xm1-cd:${SITECORE_VERSION}
-        TOOLING_IMAGE: ${SITECORE_TOOLS_REGISTRY}sitecore-docker-tools-assets:${TOOLS_VERSION}
+        TOOLING_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-sitecore-docker-tools-assets:${VERSION:-latest}
         SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
     depends_on:
       - solution
+      - tools
     volumes:
       - ${LOCAL_DEPLOY_PATH}\website:C:\deploy
       - ${LOCAL_DATA_PATH}\cd:C:\inetpub\wwwroot\App_Data\logs
@@ -49,10 +59,11 @@ services:
       context: ./docker/build/cm
       args:
         BASE_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xm1-cm:${SITECORE_VERSION}
-        TOOLING_IMAGE: ${SITECORE_TOOLS_REGISTRY}sitecore-docker-tools-assets:${TOOLS_VERSION}
+        TOOLING_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-sitecore-docker-tools-assets:${VERSION:-latest}
         SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
     depends_on:
       - solution
+      - tools
     volumes:
       - ${LOCAL_DEPLOY_PATH}\website:C:\deploy
       - ${LOCAL_DATA_PATH}\cm:C:\inetpub\wwwroot\App_Data\logs
