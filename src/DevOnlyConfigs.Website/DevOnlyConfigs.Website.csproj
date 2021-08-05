@@ -53,6 +53,10 @@
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Sitecore.Assemblies.Platform">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Sitecore.Kernel" />
   </ItemGroup>
   <ItemGroup>
